@@ -28,10 +28,10 @@ variables.tfで定義したデフォルト値を変更したい場合に設定�
 
 * リソース作成
 
-                terraform apply -var-file=credential.tfvars
+		terraform apply -var-file=credential.tfvars
 
 
 * リソース削除
 
-                terraform destory -var-file=credential.tfvars
+		terraform destory -var-file=credential.tfvars
 
