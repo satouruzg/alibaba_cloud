@@ -22,13 +22,16 @@ variables.tfで定義したデフォルト値を変更したい場合に設定�
 ## 実行方法
 
 * ドライラン
+
 		terraform plan -var-file=credential.tfvars
 
 
 * リソース作成
+
                 terraform apply -var-file=credential.tfvars
 
 
 * リソース削除
+
                 terraform destory -var-file=credential.tfvars
 
