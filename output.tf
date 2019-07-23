@@ -19,7 +19,7 @@ output "private_ip_address_slb" {
 }
 
 # ファイルサーバプライベートIPアドレス
-output "file_server_private_ip_addresses" {
+output "private_ip_address_file_server" {
   value = "${data.alicloud_instances.file_server.instances.*.private_ip}"
 }
 
@@ -37,3 +37,4 @@ output "private_ip_address_addc_secondary" {
 output "private_ip_address_manager" {
   value = "${alicloud_instance.manager.private_ip}"
 }
+

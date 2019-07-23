@@ -137,46 +137,6 @@ resource "alicloud_key_pair" "keypair" {
 }
 
 #-------------------------------------------------------
-# ECS
-#-------------------------------------------------------
-
-resource "alicloud_instance" "addc_primary" {
-  image_id          = "${var.custom_image_addc_primary}"
-  instance_type     = "${var.instance_type_addc}"
-  availability_zone = "ap-northeast-1a"
-  vswitch_id        = "${alicloud_vswitch.vsw_a.id}"
-  security_groups   = "${alicloud_security_group.security_group.*.id}"
-  instance_name     = "${var.instance_name_addc_primary}"
-  host_name         = "${var.host_name_addc_primary}"
-  password          = "${var.ecs_windows_password}"
-  description       = "${var.description_addc_primary}"
-}
-
-resource "alicloud_instance" "addc_secondary" {
-  image_id          = "${var.custom_image_addc_secondary}"
-  instance_type     = "${var.instance_type_addc}"
-  availability_zone = "ap-northeast-1b"
-  vswitch_id        = "${alicloud_vswitch.vsw_b.id}"
-  security_groups   = "${alicloud_security_group.security_group.*.id}"
-  instance_name     = "${var.instance_name_addc_secondary}"
-  host_name         = "${var.host_name_addc_secondary}"
-  password          = "${var.ecs_windows_password}"
-  description       = "${var.description_addc_secondary}"
-}
-
-resource "alicloud_instance" "manager" {
-  image_id          = "${var.custom_image_manager}"
-  instance_type     = "${var.instance_type_manager}"
-  availability_zone = "ap-northeast-1a"
-  vswitch_id        = "${alicloud_vswitch.vsw_a.id}"
-  security_groups   = "${alicloud_security_group.security_group.*.id}"
-  instance_name     = "${var.instance_name_manager}"
-  host_name         = "${var.host_name_manager}"
-  key_name          = "${alicloud_key_pair.keypair.id}"
-  description       = "${var.description_addc_manager}"
-}
-
-#-------------------------------------------------------
 # SLB
 #-------------------------------------------------------
 resource "alicloud_slb" "slb" {
@@ -223,8 +183,49 @@ resource "alicloud_ess_scaling_configuration" "scaling_config" {
 }
 
 #-------------------------------------------------------
+# ECS
+#-------------------------------------------------------
+
+resource "alicloud_instance" "addc_primary" {
+  image_id          = "${var.custom_image_addc_primary}"
+  instance_type     = "${var.instance_type_addc}"
+  availability_zone = "ap-northeast-1a"
+  vswitch_id        = "${alicloud_vswitch.vsw_a.id}"
+  security_groups   = "${alicloud_security_group.security_group.*.id}"
+  instance_name     = "${var.instance_name_addc_primary}"
+  host_name         = "${var.host_name_addc_primary}"
+  password          = "${var.ecs_windows_password}"
+  description       = "${var.description_addc_primary}"
+}
+
+resource "alicloud_instance" "addc_secondary" {
+  image_id          = "${var.custom_image_addc_secondary}"
+  instance_type     = "${var.instance_type_addc}"
+  availability_zone = "ap-northeast-1b"
+  vswitch_id        = "${alicloud_vswitch.vsw_b.id}"
+  security_groups   = "${alicloud_security_group.security_group.*.id}"
+  instance_name     = "${var.instance_name_addc_secondary}"
+  host_name         = "${var.host_name_addc_secondary}"
+  password          = "${var.ecs_windows_password}"
+  description       = "${var.description_addc_secondary}"
+}
+
+resource "alicloud_instance" "manager" {
+  image_id          = "${var.custom_image_manager}"
+  instance_type     = "${var.instance_type_manager}"
+  availability_zone = "ap-northeast-1a"
+  vswitch_id        = "${alicloud_vswitch.vsw_a.id}"
+  security_groups   = "${alicloud_security_group.security_group.*.id}"
+  instance_name     = "${var.instance_name_manager}"
+  host_name         = "${var.host_name_manager}"
+  key_name          = "${alicloud_key_pair.keypair.id}"
+  description       = "${var.description_addc_manager}"
+}
+
+#-------------------------------------------------------
 # ファイルサーバ情報取得
 #-------------------------------------------------------
 data "alicloud_instances" "file_server" {
   name_regex = "${var.instance_name_fileserver}"
 }
+
